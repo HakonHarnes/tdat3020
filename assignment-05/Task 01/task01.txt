@@ -1,0 +1,1 @@
+wget http://www.iie.ntnu.no/fag/_spn/L05/opg05.pdf

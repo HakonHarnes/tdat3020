@@ -1,0 +1,3 @@
+/Users/hakon/programming/security/Assignment 08/Task a/build/CMakeFiles/rebuild_cache.dir
+/Users/hakon/programming/security/Assignment 08/Task a/build/CMakeFiles/edit_cache.dir
+/Users/hakon/programming/security/Assignment 08/Task a/build/CMakeFiles/main.dir

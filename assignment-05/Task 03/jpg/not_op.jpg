@@ -1,0 +1,62 @@
+import torch
+import matplotlib.pyplot as plt
+import csv
+
+
+
+
+x_train = torch.FloatTensor([0.0, 1.0]).reshape(-1, 1)
+y_train = torch.FloatTensor([1.0 , 0.0]).reshape(-1, 1)
+
+
+class LinearRegressionModel:
+    def __init__(self):
+        # Model variables
+        self.W = torch.tensor([[0.0]], requires_grad=True)  # requires_grad enables calculation of gradients
+        self.b = torch.tensor([[1.0]], requires_grad=True)
+
+
+    
+    def logits(self, x):
+        return x @ self.W + self.b 
+
+    # Predictor
+    def f(self, x):
+        return torch.sigmoid(self.logits(x)) 
+
+    # Uses Mean Squared Error
+    def loss(self, x, y):
+        return torch.nn.functional.binary_cross_entropy_with_logits(self.logits(x), y)
+
+model = LinearRegressionModel()
+
+# Optimize: adjust W and b to minimize loss using stochastic gradient descent
+optimizer = torch.optim.SGD([model.b, model.W], 0.015)
+for epoch in range(100000):
+    model.loss(x_train, y_train).backward()  # Compute loss gradients
+    optimizer.step()  # Perform optimization by adjusting W and b,
+    # similar to:
+    # model.W -= model.W.grad * 0.01
+    # model.b -= model.b.grad * 0.01
+
+    optimizer.zero_grad()  # Clear gradients for next step
+
+# Print model variables and loss
+print("W = %s, b = %s, loss = %s" % (model.W, model.b, model.loss(x_train, y_train)))
+
+# Visualize result
+plt.plot(x_train, y_train, '.', label='$(\\hat x^{(i)},\\hat y^{(i)})$')
+plt.xlabel('x')
+plt.ylabel('y')
+x = torch.tensor([[torch.min(x_train)], [torch.max(x_train)]])
+axes = plt.gca()
+axes.set_xlim([torch.min(x_train)-1, torch.max(x_train)+1])
+axes.set_ylim([torch.min(y_train)-1, torch.max(y_train)+1])
+plt.plot(x, model.f(x).detach(), label='$y = f(x) = xW+b$')
+plt_info = plt.text(-0.5, -0.5, '')
+plt_info.set_text('$loss = %.5f$' %
+                        (model.loss(x_train, y_train)))
+
+plt.plot(model.loss(x_train, y_train).detach())
+plt.legend()
+plt.show()

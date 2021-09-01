@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/hakon/programming/security/Assignment 04/Task 02/cpp/build",
+  "command": "/usr/bin/c++     -std=c++1y -Wall -Wextra   -o CMakeFiles/cpp.dir/main.cpp.o -c \"/home/hakon/programming/security/Assignment 04/Task 02/cpp/main.cpp\"",
+  "file": "/home/hakon/programming/security/Assignment 04/Task 02/cpp/main.cpp"
+}
+]

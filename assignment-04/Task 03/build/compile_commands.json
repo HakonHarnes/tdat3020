@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/hakon/programming/security/Assignment 04/Task 03/build",
+  "command": "/usr/bin/cc    -std=c11 -Wall -Wextra   -o CMakeFiles/c_example.dir/main.c.o   -c \"/home/hakon/programming/security/Assignment 04/Task 03/main.c\"",
+  "file": "/home/hakon/programming/security/Assignment 04/Task 03/main.c"
+},
+{
+  "directory": "/home/hakon/programming/security/Assignment 04/Task 03/build",
+  "command": "/usr/bin/cc    -std=c11 -Wall -Wextra   -o CMakeFiles/c_example.dir/a_function.c.o   -c \"/home/hakon/programming/security/Assignment 04/Task 03/a_function.c\"",
+  "file": "/home/hakon/programming/security/Assignment 04/Task 03/a_function.c"
+},
+{
+  "directory": "/home/hakon/programming/security/Assignment 04/Task 03/build",
+  "command": "/usr/bin/cc    -std=c11 -Wall -Wextra   -o CMakeFiles/c_example.dir/more_functions.c.o   -c \"/home/hakon/programming/security/Assignment 04/Task 03/more_functions.c\"",
+  "file": "/home/hakon/programming/security/Assignment 04/Task 03/more_functions.c"
+}
+]

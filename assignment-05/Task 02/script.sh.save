@@ -1,0 +1,1 @@
+find /home/hakon/Downloads -mtime +7 -regex '*.iso\|*.pdf'

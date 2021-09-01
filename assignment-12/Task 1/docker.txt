@@ -1,0 +1,6 @@
+https://www.youtube.com/watch?v=zxii33gV1BU
+
+# -- start docker command here 
+docker ps
+sudo docker exec -it affectionate_chaplygin mysql -u root -pgwoieng23fjj
+

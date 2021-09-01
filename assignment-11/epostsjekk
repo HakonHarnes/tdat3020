@@ -1,0 +1,120 @@
+#!/bin/bash
+
+# -- A RECORDS -- #
+printf "$(tput bold)\n[A-records]\n$(tput sgr0)"
+
+# gets host names and ip-adresses
+NAMES=( $(nslookup $1 | tail -n +5 | grep 'Name' | cut -f2) ) 
+ADDRESSES=( $(nslookup $1 | tail -n +5 | grep 'Address' | cut -d ' ' -f2) )
+
+# performs reverse lookup
+for ((i=0; i<${#ADDRESSES[@]}; ++i))
+do
+    printf "%-11s %s\n" $'\nName:' ${NAMES[i]}
+    printf "%-10s %s\n" 'Address:' ${ADDRESSES[i]}
+
+    REVERSE_NAME=( $(nslookup ${ADDRESSES[i]} | grep 'name' |  cut -d ' ' -f3 | cut -d$'\n' -f1-) )
+    REVERSE_ADRS=( $(nslookup ${ADDRESSES[i]} | grep 'name' |  cut -f1) )
+
+    for ((j=0; j<${#REVERSE_ADRS[@]}; ++j))
+    do
+        printf "%-10s %s\n" "Reverse:" ${REVERSE_NAME[j]} " " ${REVERSE_ADRS[j]}
+    done
+done
+
+# -- MX RECORDS -- #
+printf "$(tput bold)\n[MX-records]\n$(tput sgr0)"
+
+# gets mx-records
+MX_RECORDS=( $(nslookup -type=mx $1 | grep 'mail exchanger' | cut -d ' ' -f5) )
+
+# gets ip-address(es) for each mx-record
+for i in ${MX_RECORDS[@]}
+do
+    # prints MX-record
+    printf "\n%-10s %s\n" "Name:" $i
+
+    # prints ip-address(es)
+    MX_ADDRESSES=( $(nslookup $i | tail -n +5 | grep 'Address' | cut -d ' ' -f2) )
+    for j in ${MX_ADDRESSES[@]}
+        do
+            printf "%-10s %s\n" "Address:" $j
+        done
+done
+
+# -- SPF LOOKUP -- #
+printf "$(tput bold)\n[SPF]\n\n$(tput sgr0)"
+
+A_INCLUDED=false
+MX_INCLUDED=false
+
+ALL=""
+
+# list of IPv4 and IPv6 addresses
+IPv4=()
+IPv6=()
+
+# recursive function for spf lookup
+function spf_lookup {
+    SPF=( $(nslookup -type=txt $1 | grep spf1 | cut -d '"' -f2 | cut -d ' ' -f2-) )
+
+    for i in ${SPF[@]}
+    do
+        TYPE=${i%%:*}
+        VALUE=${i#*:}
+
+        # checks if type is a redirect (sep by =, not :)
+        if [[ $TYPE == *"redirect"* ]]
+        then
+            TYPE=${i%%=*}
+            VALUE=${i#*=}
+        fi
+
+        # checks if type is all (-all or ~all)
+        if [[ $TYPE == *"all"* ]]; then ALL=$TYPE; fi
+
+        case $TYPE in
+            mx)
+                MX_INCLUDED=true
+            ;;
+            a)
+                A_INCLUDED=true
+            ;;
+            ip4)
+                IPv4+=($VALUE)
+            ;;
+            ip6)
+                IPv6+=($VALUE)
+            ;;
+            include)
+                spf_lookup $VALUE
+            ;;
+            redirect)
+                spf_lookup $VALUE
+            ;;
+        esac
+    done
+}
+
+# starts the recursive function
+spf_lookup $1
+
+# prints if A-Records or MX-Records are included
+if $A_INCLUDED ; then printf "A-records included: Yes\n"; else printf "A-records included: No\n"; fi
+if $MX_INCLUDED ; then printf "MX-records included: Yes\n"; else printf "MX-records included: No\n"; fi 
+
+# prints ipv4 addresses
+printf "\nIPv4-Addresses:\n"
+for i in ${IPv4[@]}
+do
+    printf "    %s\n" $i
+done
+
+# prints ipv6 addresses
+printf "\nIPv6-Addresses:\n"
+for i in ${IPv6[@]}
+do
+    printf "    %s\n" $i
+done
+
+printf "\n%s\n\n" $ALL

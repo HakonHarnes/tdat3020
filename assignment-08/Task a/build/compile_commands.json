@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Users/hakon/programming/security/Assignment 08/Task a/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++   -I/usr/local/opt/openssl/include   -std=c++1y -Wall -Wextra -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk   -o CMakeFiles/main.dir/main.cpp.o -c \"/Users/hakon/programming/security/Assignment 08/Task a/main.cpp\"",
+  "file": "/Users/hakon/programming/security/Assignment 08/Task a/main.cpp"
+}
+]

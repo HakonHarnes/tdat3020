@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hakon/programming/security/Assignment 06/c/main.c
+str_format.h
+/home/hakon/programming/security/Assignment 06/c/str_format.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+
+/home/hakon/programming/security/Assignment 06/c/str_format.h
+stddef.h
+-
+stdint.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+

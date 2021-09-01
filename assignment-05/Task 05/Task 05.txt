@@ -1,0 +1,18 @@
+Grav aksenter brukes for å fange output fra en kommando. Kommandoen inni grav aksenter vil utføres først. Da vil outputen
+til kommandoen erstatte det som står inni grav aksenter. 
+
+For eksempel vil: 
+echo Jeg heter `whoami`
+
+Bli til: 
+echo Jeg heter hakon 
+
+Da printes 'Jeg heter hakon'. 
+
+Tilsvarende vil dette: 
+MASKIN=`hostname`
+
+Bli til:
+MASKIN=hakon 
+
+Da tilordnes miljøvariabelen $MASKIN verdien 'hakon'.

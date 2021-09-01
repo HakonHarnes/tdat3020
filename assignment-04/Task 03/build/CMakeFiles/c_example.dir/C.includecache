@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hakon/programming/security/Assignment 04/Task 03/a_function.c
+a_function.h
+/home/hakon/programming/security/Assignment 04/Task 03/a_function.h
+stdio.h
+-
+
+/home/hakon/programming/security/Assignment 04/Task 03/a_function.h
+
+/home/hakon/programming/security/Assignment 04/Task 03/main.c
+a_function.h
+/home/hakon/programming/security/Assignment 04/Task 03/a_function.h
+more_functions.h
+/home/hakon/programming/security/Assignment 04/Task 03/more_functions.h
+stdio.h
+-
+
+/home/hakon/programming/security/Assignment 04/Task 03/more_functions.c
+more_functions.h
+/home/hakon/programming/security/Assignment 04/Task 03/more_functions.h
+stdio.h
+-
+
+/home/hakon/programming/security/Assignment 04/Task 03/more_functions.h
+
